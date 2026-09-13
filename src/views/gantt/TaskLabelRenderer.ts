@@ -1,7 +1,7 @@
 import { Menu } from 'obsidian'
 import { Chip, CollapseToggle, IconButton, renderProjectChip, renderStatusDot, safeAsync, ROW_HEIGHT } from '@dotpm/ui'
 import type PMPlugin from '#main'
-import type { StatusConfig, Task } from '@dotpm/core'
+import { type StatusConfig, type Task, t } from '@dotpm/core'
 import type { ProjectScope, TaskRef } from '#store'
 import { openTaskByPath, openTaskModal } from '#ui/ModalFactory'
 import { toggleCollapsed } from '../collapse'
@@ -132,7 +132,7 @@ export function renderTaskLabel(
 
   new IconButton(el)
     .setIcon('plus')
-    .setTooltip('Add subtask')
+    .setTooltip(t('Add subtask'))
     .setRevealOnHover(true)
     .onClick((e) => {
       e.stopPropagation()

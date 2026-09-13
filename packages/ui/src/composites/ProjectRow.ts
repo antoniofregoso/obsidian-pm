@@ -3,6 +3,7 @@ import { Chip } from '#primitives/Chip'
 import { CollapseToggle } from '#primitives/CollapseToggle'
 import { IconButton } from '#primitives/IconButton'
 import { ProgressBar } from '#primitives/ProgressBar'
+import { t } from '@dotpm/core'
 import { renderDueChip, type DueUrgency } from './dueChip'
 import { renderGlyph } from './properties'
 import { renderTreeGuides } from './treeGuides'
@@ -83,7 +84,7 @@ export class ProjectRow {
     const actions = this.el.createEl('td', { cls: 'pm-table-cell pm-table-cell-actions' })
     new IconButton(actions)
       .setIcon('more-horizontal')
-      .setTooltip('Project actions')
+      .setTooltip(t('Project actions'))
       .setRevealOnHover(true)
       .onClick((e) => props.onActions(e))
 

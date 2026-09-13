@@ -1,6 +1,6 @@
 import { ItemView, Scope, WorkspaceLeaf } from 'obsidian'
 import type PMPlugin from '#main'
-import { type Task, flattenTasks, truncateTitle } from '@dotpm/core'
+import { type Task, flattenTasks, truncateTitle, t } from '@dotpm/core'
 import { EmptyState } from '@dotpm/ui'
 import { TaskEditor } from '#modals/TaskEditor'
 
@@ -72,7 +72,7 @@ export class TaskView extends ItemView {
     const resolvedProjectPath = projectPath ?? (filePath ? this.plugin.index.projectPathForTask(filePath) : null)
     const project = resolvedProjectPath ? await this.plugin.store.loadProjectByPath(resolvedProjectPath) : null
     if (!project) {
-      this.showMissing('This note does not belong to a project.')
+      this.showMissing(t('This note does not belong to a project.'))
       return
     }
 
@@ -80,7 +80,7 @@ export class TaskView extends ItemView {
     if (filePath) {
       task = flattenTasks(project.tasks).find((f) => f.task.filePath === filePath)?.task ?? null
       if (!task) {
-        this.showMissing(`This note is not a task in ${project.title}.`)
+        this.showMissing(t('This note is not a task in {project}.', { project: project.title }))
         return
       }
       await this.plugin.store.loadTaskBody(task)
@@ -102,6 +102,6 @@ export class TaskView extends ItemView {
 
   private showMissing(message: string): void {
     this.taskTitle = 'Task'
-    new EmptyState(this.contentEl).setIcon('square-check-big').setTitle('No task here').setBody(message)
+    new EmptyState(this.contentEl).setIcon('square-check-big').setTitle(t('No task here')).setBody(message)
   }
 }

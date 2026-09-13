@@ -1,4 +1,5 @@
 import '@dotpm/ui/dom-shim'
+import { t } from '@dotpm/core'
 import { domPlatform } from '@dotpm/ui/dom-platform'
 import { isSnapshot, tasksFromResources, type Snapshot } from '@dotpm/api'
 import type { ViewMode } from '@dotpm/core'
@@ -143,7 +144,7 @@ function boot(): void {
   if (!root) return
   const snapshot = readEmbeddedSnapshot(document)
   if (!snapshot) {
-    root.setText('This page holds no readable snapshot.')
+    root.setText(t('This page holds no readable snapshot.'))
     return
   }
   followSystemTheme()

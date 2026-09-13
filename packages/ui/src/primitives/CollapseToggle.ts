@@ -1,4 +1,5 @@
 import { setIcon } from '#platform'
+import { t } from '@dotpm/core'
 
 export interface CollapseToggleProps {
   collapsed: boolean
@@ -15,7 +16,10 @@ export class CollapseToggle {
     setIcon(this.el, 'right-triangle')
     this.el.toggleClass('is-collapsed', props.collapsed)
     const subject = props.subject ?? 'subtasks'
-    this.el.setAttr('aria-label', `${props.collapsed ? 'Expand' : 'Collapse'} ${subject}`)
+    this.el.setAttr(
+      'aria-label',
+      t('{action} {subject}', { action: props.collapsed ? t('Expand') : t('Collapse'), subject })
+    )
     this.el.addEventListener('click', props.onToggle)
   }
 }

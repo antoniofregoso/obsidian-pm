@@ -579,6 +579,24 @@ export default class PMPlugin extends Plugin {
   }
 
   /**
+   * The locale changed, so open views need a full rebuild: refreshViews only repaints the
+   * palette-driven views, while overview, edit and task tabs bake their copy into the DOM.
+   * Task tabs reload too, but only here — a data change must never reset an open editor.
+   */
+  relocalize(): void {
+    this.refreshViews()
+    for (const leaf of this.app.workspace.getLeavesOfType(PM_PROJECT_OVERVIEW_VIEW_TYPE)) {
+      if (leaf.view instanceof ProjectOverviewView) void leaf.view.reload()
+    }
+    for (const leaf of this.app.workspace.getLeavesOfType(PM_PROJECT_EDIT_VIEW_TYPE)) {
+      if (leaf.view instanceof ProjectEditView) void leaf.view.reload()
+    }
+    for (const leaf of this.app.workspace.getLeavesOfType(PM_TASK_VIEW_TYPE)) {
+      if (leaf.view instanceof TaskView) void leaf.view.reload()
+    }
+  }
+
+  /**
    * Offers every project in the vault, loading only the one chosen. `autoSelectSingle`
    * skips a picker that would have exactly one entry.
    */

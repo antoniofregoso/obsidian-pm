@@ -19,7 +19,7 @@ export class TaskView extends ItemView {
   plugin: PMPlugin
   private editor: TaskEditor | null = null
   private state: TaskViewState = {}
-  private taskTitle = 'Task'
+  private taskTitle = t('Task')
   private keyScope: Scope
 
   constructor(leaf: WorkspaceLeaf, plugin: PMPlugin) {
@@ -49,6 +49,12 @@ export class TaskView extends ItemView {
 
   getState(): TaskViewState {
     return this.state
+  }
+
+  /** Rebuilds the editor, e.g. after the interface language changed. */
+  async reload(): Promise<void> {
+    await this.loadTask()
+    ;(this.leaf as WorkspaceLeaf & { updateHeader?: () => void }).updateHeader?.()
   }
 
   onOpen(): Promise<void> {
@@ -86,7 +92,7 @@ export class TaskView extends ItemView {
       await this.plugin.store.loadTaskBody(task)
     }
 
-    this.taskTitle = task?.title ?? 'New task'
+    this.taskTitle = task?.title ?? t('New task')
     this.editor = new TaskEditor(
       this.app,
       this.plugin,
@@ -101,7 +107,7 @@ export class TaskView extends ItemView {
   }
 
   private showMissing(message: string): void {
-    this.taskTitle = 'Task'
+    this.taskTitle = t('Task')
     new EmptyState(this.contentEl).setIcon('square-check-big').setTitle(t('No task here')).setBody(message)
   }
 }

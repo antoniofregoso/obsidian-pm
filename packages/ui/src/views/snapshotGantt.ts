@@ -17,7 +17,8 @@ import { renderTimelineHeader } from '../gantt/header'
 import { HEADER_HEIGHT, LABEL_WIDTH, ROW_HEIGHT, buildTimelineConfig, dateToX } from '../gantt/TimelineConfig'
 import { allTasks, isMulti, mergedConfig, projectOf, type ViewModel } from './model'
 
-const GRANULARITIES: { id: GanttGranularity; label: string }[] = [
+// Built per render, not at module init: the viewer sets its locale only after this module's imports have run.
+const granularityOptions = (): { id: GanttGranularity; label: string }[] => [
   { id: 'day', label: t('Day') },
   { id: 'week', label: t('Week') },
   { id: 'month', label: t('Month') },
@@ -117,7 +118,7 @@ export function renderSnapshotGantt(container: HTMLElement, model: ViewModel): H
     renderBody(body, model, granularity)
   }
   new SegmentedControl<GanttGranularity>(bar, {
-    options: GRANULARITIES,
+    options: granularityOptions(),
     active: granularity,
     onChange: (level) => {
       granularity = level

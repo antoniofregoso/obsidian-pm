@@ -46,7 +46,7 @@ export class ProjectRow {
       new CollapseToggle(expand, {
         collapsed: props.collapsed,
         onToggle: () => props.onToggleCollapsed(),
-        subject: 'sub-projects'
+        subject: 'Sub-projects'
       })
     }
 

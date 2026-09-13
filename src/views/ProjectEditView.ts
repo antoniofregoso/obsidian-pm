@@ -73,6 +73,11 @@ export class ProjectEditView extends ItemView {
     return this.state
   }
 
+  /** Reloads and redraws, e.g. after the interface language changed. */
+  async reload(): Promise<void> {
+    await this.loadProject()
+  }
+
   onOpen(): Promise<void> {
     this.containerEl.addClass('pm-view')
     this.contentEl.empty()

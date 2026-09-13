@@ -127,6 +127,7 @@ export const zh: Record<string, string> = {
 
   // Table view ----------------------------------------------------------------------------
   Task: '任务',
+  'New task': '新任务',
   'Sort by {column}': '按{column}排序',
   'Add task': '添加任务',
   '{n} task': '{n} 个任务',
@@ -260,6 +261,7 @@ export const zh: Record<string, string> = {
   'Done: {title}': '完成：{title}',
   'Remove subtask': '移除子任务',
   'Subtasks ': '子任务 ',
+  Subtasks: '子任务',
   'Add subtask…': '添加子任务…',
   'Time tracking ({logged}h / {est}h)': '工时（已记录 {logged} 小时 / 预估 {est} 小时）',
   'Time tracking ({logged}h logged)': '工时（已记录 {logged} 小时）',

@@ -300,6 +300,7 @@ export class PMSettingTab extends PluginSettingTab {
     if (key === 'language') {
       setLocale(this.plugin.settings.language)
       this.update()
+      this.plugin.relocalize()
     }
     if (key.startsWith('localApi')) await this.plugin.syncLocalApi()
     this.plugin.refreshViews()

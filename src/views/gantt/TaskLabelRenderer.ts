@@ -101,7 +101,7 @@ export function renderTaskLabel(
       return owner ? `${ref.title} (${owner.title})` : ref.title
     }
     new Chip(el)
-      .setLabel(`Depends on ${elsewhere.length} elsewhere`)
+      .setLabel(t('Depends on {n} elsewhere', { n: elsewhere.length }))
       .setVariant('plain')
       .setSize('sm')
       .setTooltip(elsewhere.map(nameOf).join('\n'))

@@ -9,6 +9,7 @@ export const zh: Record<string, string> = {
   'No project here': '项目不存在',
   'It may have been deleted or renamed.': '它可能已被删除或重命名。',
   'Open project page': '打开项目页面',
+  'Open {title}': '打开 {title}',
   Table: '表格',
   Gantt: '甘特图',
   Board: '看板',
@@ -179,6 +180,8 @@ export const zh: Record<string, string> = {
   '\nAssignees: {names}': '\n负责人：{names}',
 
   // Filter header -------------------------------------------------------------------------
+  Filter: '筛选',
+  '+ save view': '+ 保存视图',
   'Filter by {column}': '按{column}筛选',
   'Due: {label}': '截止：{label}',
   'Due date': '截止日期',
@@ -198,6 +201,7 @@ export const zh: Record<string, string> = {
   'Toggle filter row': '切换筛选行',
   'Add subtask': '添加子任务',
   Subtask: '子任务',
+  Sub: '子',
   Milestone: '里程碑',
   Recurring: '循环任务',
   'Task actions': '任务操作',
@@ -248,6 +252,7 @@ export const zh: Record<string, string> = {
   'Add tags': '添加标签',
   'Find or create…': '查找或创建…',
   'Depends on': '依赖于',
+  'Depends on {n} elsewhere': '依赖其他项目的 {n} 个任务',
   'Add dependency': '添加依赖',
   'Add another': '再添加一个',
   Blocks: '阻塞',
@@ -320,6 +325,9 @@ export const zh: Record<string, string> = {
   'Remove dependency': '移除依赖',
   'Search icons or paste an emoji': '搜索图标或粘贴表情符号',
   'Use {icon}': '使用 {icon}',
+  'No icon': '无图标',
+  'No icon matches that.': '没有匹配的图标。',
+  'Showing {shown} of {total}. Keep typing to narrow.': '显示 {shown}/{total} 个，继续输入可缩小范围。',
 
   // Custom field editor ---------------------------------------------------------------------------------
   'Field name': '字段名称',
@@ -446,6 +454,7 @@ export const zh: Record<string, string> = {
   'TaskNotes 4.10 or newer is required.': '需要 TaskNotes 4.10 或更高版本。',
   'Imported from TaskNotes: {added} added, {updated} updated.':
     '已从 TaskNotes 导入：新增 {added} 项，更新 {updated} 项。',
+  "Remapped {n} task(s) from '{from}' to '{to}'.": '已把 {n} 个任务从「{from}」改为「{to}」。',
   'Statuses and priorities already match TaskNotes.': '状态和优先级已与 TaskNotes 一致。',
   'Local API': '本地 API',
   'Serve projects to other apps': '向其他应用提供项目数据',
@@ -552,6 +561,7 @@ export const zh: Record<string, string> = {
   'Archived {tasks} completed task(s) in {projects} project(s).': '已在 {projects} 个项目中归档 {tasks} 个已完成任务。',
   'Repaired duplicated ids in "{title}" (copied project).': '已修复「{title}」中重复的 ID（已复制项目）。',
   '{n}d overdue': '逾期 {n} 天',
+  '{n} overdue': '{n} 项已逾期',
   Tomorrow: '明天',
   'In {n}d': '{n} 天后',
   '{n}d late': '晚了 {n} 天',
@@ -586,5 +596,6 @@ export const zh: Record<string, string> = {
   URL: 'URL',
 
   // Viewer -----------------------------------------------------------------------------------------------------------------------
-  'This page holds no readable snapshot.': '此页面不包含可读取的快照。'
+  'This page holds no readable snapshot.': '此页面不包含可读取的快照。',
+  '{n} tasks · exported {date} {time}': '{n} 个任务 · 导出于 {date} {time}'
 }

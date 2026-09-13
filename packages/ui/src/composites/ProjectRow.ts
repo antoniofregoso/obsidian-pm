@@ -67,7 +67,7 @@ export class ProjectRow {
     tasks.createSpan({ cls: 'pm-project-row-tasks', text: `${props.tasksDone}/${props.tasksTotal}` })
     if (props.overdue > 0) {
       new Chip(tasks)
-        .setLabel(`${props.overdue} overdue`)
+        .setLabel(t('{n} overdue', { n: props.overdue }))
         .setVariant('solid')
         .setColor('var(--color-red)')
         .setSize('sm')

@@ -57,7 +57,7 @@ export class TitleCell {
     }
     if (task.type === 'subtask') {
       new Chip(inner)
-        .setLabel('Sub')
+        .setLabel(t('Sub'))
         .setVariant('solid')
         .setSize('sm')
         .setColor('var(--color-green)')
@@ -73,7 +73,7 @@ export class TitleCell {
     }
     if (task.archived) {
       new Chip(inner)
-        .setLabel('Archived')
+        .setLabel(t('Archived'))
         .setVariant('solid')
         .setSize('sm')
         .setColor('var(--text-muted)')

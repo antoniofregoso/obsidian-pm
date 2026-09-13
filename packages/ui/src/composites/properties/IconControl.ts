@@ -69,7 +69,7 @@ export function renderIconControl(opts: IconControlOpts): void {
 
       clearRow.empty()
       renderOptionRow(clearRow, {
-        label: 'No icon',
+        label: t('No icon'),
         icon: 'ban',
         selected: !value,
         onPick: () => commit('')
@@ -91,9 +91,11 @@ export function renderIconControl(opts: IconControlOpts): void {
       }
 
       if (found.length > GRID_LIMIT) {
-        hint.setText(`Showing ${GRID_LIMIT} of ${found.length}. Keep typing to narrow.`)
+        hint.setText(
+          t('Showing {shown} of {total}. Keep typing to narrow.', { shown: GRID_LIMIT, total: found.length })
+        )
       } else if (found.length === 0 && !isGlyphQuery(query)) {
-        hint.setText('No icon matches that.')
+        hint.setText(t('No icon matches that.'))
       }
     }
 

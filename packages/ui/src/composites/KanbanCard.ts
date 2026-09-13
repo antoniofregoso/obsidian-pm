@@ -56,7 +56,7 @@ export class KanbanCard {
     }
     if (task.type === 'subtask') {
       new Chip(titleRow)
-        .setLabel('Sub')
+        .setLabel(t('Sub'))
         .setVariant('solid')
         .setSize('sm')
         .setColor('var(--color-green)')

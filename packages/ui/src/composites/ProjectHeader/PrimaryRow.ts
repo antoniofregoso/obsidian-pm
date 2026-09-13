@@ -106,7 +106,7 @@ export class PrimaryRow {
   private renderSaveViewAction(parent: HTMLElement): void {
     if (!isFilterActive(this.props.filter) && !this.props.filter.showArchived) return
 
-    const saveBtn = createButton(parent).setButtonText('+ save view')
+    const saveBtn = createButton(parent).setButtonText(t('+ save view'))
     saveBtn.onClick(() => this.beginInlineSave(parent, saveBtn))
   }
 
@@ -154,7 +154,7 @@ export class PrimaryRow {
     const isFilterRowVisible =
       this.props.filterRowExpanded || isFilterActive(this.props.filter) || this.props.filter.showArchived
     const btn = new ChipButton(parent)
-      .setLabel('Filter')
+      .setLabel(t('Filter'))
       .setShape('pill')
       .setActive(isFilterRowVisible)
       .setAriaLabel(t('Toggle filter row'))

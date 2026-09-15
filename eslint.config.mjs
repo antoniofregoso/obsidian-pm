@@ -9,10 +9,10 @@ export default defineConfig([
       '**/*.test.ts',
       'packages/*/test/**',
       'packages/*/dist/**',
+      'packages/*/tsdown.config.ts',
       'packages/ui/src/dom-shim.ts',
       'packages/ui/src/dom-platform.ts',
-      'packages/viewer/**',
-      'packages/cli/**'
+      'packages/viewer/**'
     ]
   },
   {

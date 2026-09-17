@@ -1,7 +1,7 @@
 import { Notice, type KeymapEventHandler, type Scope } from 'obsidian'
 import { confirmDialog } from '#ui/ModalFactory'
 import type PMPlugin from '#main'
-import type { FilterState, Project } from '@dotpm/core'
+import { t, tn, type FilterState, type Project } from '@dotpm/core'
 import type { ProjectScope } from '#store'
 import { safeAsync } from '@dotpm/ui'
 import type { SubView } from '../SubView'
@@ -11,8 +11,6 @@ import type { SortKey, SortDir, TableState } from './TableRenderer'
 import { updateSelectAllCheckbox } from './TableRow'
 import { renderBulkActionBar } from './BulkActionBar'
 import type { BulkAction } from './BulkActionBar'
-
-const taskCount = (n: number) => `${n} task${n === 1 ? '' : 's'}`
 
 export interface TableViewState {
   sortKey: SortKey
@@ -124,7 +122,7 @@ export class TableView implements SubView {
     const groups = this.scope.groupByProject(ids)
     try {
       if (action.type === 'delete') {
-        if (!(await confirmDialog(this.plugin.app, `Delete ${taskCount(ids.length)}? This cannot be undone.`))) {
+        if (!(await confirmDialog(this.plugin.app, tn('table.deleteTasksConfirm', ids.length)))) {
           return
         }
       }
@@ -133,23 +131,23 @@ export class TableView implements SubView {
       }
       switch (action.type) {
         case 'set-parent':
-          new Notice(`Moved ${taskCount(ids.length)} under new parent`)
+          new Notice(tn('table.movedTasksUnderParent', ids.length))
           break
         case 'remove-parent':
-          new Notice(`Moved ${taskCount(ids.length)} to top level`)
+          new Notice(tn('table.movedTasksToTopLevel', ids.length))
           break
         case 'archive':
-          new Notice(`Archived ${taskCount(ids.length)}`)
+          new Notice(tn('table.archivedTasks', ids.length))
           break
         case 'unarchive':
-          new Notice(`Unarchived ${taskCount(ids.length)}`)
+          new Notice(tn('table.unarchivedTasks', ids.length))
           break
       }
       this.state.selectedTaskIds.clear()
       await this.onRefresh()
     } catch (err) {
       console.error('Bulk action failed', err)
-      new Notice('Bulk action failed. Please try again.')
+      new Notice(t('bulk.failed'))
       await this.onRefresh()
     }
   }

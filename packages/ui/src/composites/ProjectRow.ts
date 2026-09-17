@@ -1,3 +1,4 @@
+import { t, tn } from '@dotpm/core'
 import { AvatarStack, type AvatarPerson } from '#primitives/AvatarStack'
 import { Chip } from '#primitives/Chip'
 import { CollapseToggle } from '#primitives/CollapseToggle'
@@ -47,7 +48,7 @@ export class ProjectRow {
       new CollapseToggle(expand, {
         collapsed: props.collapsed,
         onToggle: () => props.onToggleCollapsed(),
-        subject: 'sub-projects'
+        subject: t('collapse.subProjects')
       })
     }
 
@@ -56,7 +57,7 @@ export class ProjectRow {
     const inner = title.createDiv('pm-table-title-inner')
     renderGlyph(inner.createSpan({ cls: 'pm-project-row-icon' }), { icon: props.icon, color: props.color })
     inner.createSpan({ text: props.title, cls: 'pm-task-title-text' })
-    if (props.archived) new Chip(inner).setLabel('Archived').setVariant('outline').setSize('sm')
+    if (props.archived) new Chip(inner).setLabel(t('common.archived')).setVariant('outline').setSize('sm')
 
     const progress = this.el.createEl('td', { cls: 'pm-table-cell pm-table-cell-progress' })
     new ProgressBar(progress)
@@ -69,7 +70,7 @@ export class ProjectRow {
     tasks.createSpan({ cls: 'pm-project-row-tasks', text: `${props.tasksDone}/${props.tasksTotal}` })
     if (props.overdue > 0) {
       new Chip(tasks)
-        .setLabel(`${props.overdue} overdue`)
+        .setLabel(tn('projectRow.overdue', props.overdue))
         .setVariant('solid')
         .setColor('var(--color-red)')
         .setSize('sm')
@@ -86,7 +87,7 @@ export class ProjectRow {
     const actions = this.el.createEl('td', { cls: 'pm-table-cell pm-table-cell-actions' })
     new IconButton(actions)
       .setIcon('more-horizontal')
-      .setTooltip('Project actions')
+      .setTooltip(t('cell.projectActions'))
       .setRevealOnHover(true)
       .onClick((e) => props.onActions(e))
 

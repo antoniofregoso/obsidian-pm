@@ -45,7 +45,9 @@ import {
   TASK_FRONTMATTER_KEYS,
   taskFilePath,
   TASK_SLUG_MAX_LENGTH,
-  type RefWriter
+  type RefWriter,
+  locale,
+  t
 } from '@dotpm/core'
 import { archiveTask as doArchiveTask, unarchiveTask as doUnarchiveTask } from './ArchiveOps'
 import type { VaultIndex } from './VaultIndex'
@@ -96,7 +98,7 @@ function resolveTaskPath(task: Task, folder: string, previousPath: string | unde
 
 export class TaskFileNameConflictError extends Error {
   constructor(public readonly path: string) {
-    super(`A note named "${fileNameFromPath(path)}" already exists.`)
+    super(t('store.noteExists', { file: fileNameFromPath(path) }))
     this.name = 'TaskFileNameConflictError'
   }
 
@@ -107,7 +109,7 @@ export class TaskFileNameConflictError extends Error {
 
 export class UnreadableNoteError extends Error {
   constructor(public readonly path: string) {
-    super(`Could not read the properties of "${fileNameFromPath(path)}".`)
+    super(t('store.unreadableNote', { file: fileNameFromPath(path) }))
     this.name = 'UnreadableNoteError'
   }
 }
@@ -387,7 +389,7 @@ export class ProjectStore implements TaskSource {
   async loadProjects(paths: string[]): Promise<Project[]> {
     const loaded = await Promise.all(paths.map((path) => this.loadProjectByPath(path)))
     const projects = loaded.filter((p): p is Project => p !== null)
-    return projects.sort((a, b) => a.title.localeCompare(b.title))
+    return projects.sort((a, b) => a.title.localeCompare(b.title, locale()))
   }
 
   async loadProjectByPath(path: string): Promise<Project | null> {
@@ -451,7 +453,7 @@ export class ProjectStore implements TaskSource {
       return project
     } catch (e) {
       console.error(`[PM] Failed to load project ${file.path}:`, e)
-      new Notice(`dotpm: Failed to load "${file.basename}". Check console for details.`)
+      new Notice(t('store.loadFailed', { file: file.basename }))
       return null
     }
   }
@@ -577,7 +579,7 @@ export class ProjectStore implements TaskSource {
         console.warn(`[PM] Task file no longer exists, skipping: ${file.path}`)
       } else {
         console.error(`[PM] Failed to load task ${file.path}:`, e)
-        new Notice(`dotpm: Failed to load task "${file.basename}". Check console for details.`)
+        new Notice(t('store.loadTaskFailed', { file: file.basename }))
       }
       return { task: null, subtaskIds: [], parentId: null }
     }
@@ -724,11 +726,11 @@ export class ProjectStore implements TaskSource {
       if (e instanceof TaskFileNameConflictError) throw e
       if (e instanceof UnreadableNoteError) {
         console.error(`[PM] Refused to rewrite an unreadable note while saving "${project.title}":`, e)
-        new Notice(`dotpm: "${project.title}" was not saved because a note could not be read.`)
+        new Notice(t('store.notSavedUnreadable', { title: project.title }))
         throw e
       }
       console.error(`[PM] Failed to save project "${project.title}":`, e)
-      new Notice(`dotpm: Failed to save "${project.title}". Check console for details.`)
+      new Notice(t('store.saveFailed', { title: project.title }))
       throw e
     }
   }
@@ -887,7 +889,7 @@ export class ProjectStore implements TaskSource {
 
   async createProject(title: string, folder: string, patch?: ProjectPatch): Promise<Project> {
     const filePath = projectFilePath(title, folder)
-    if (findIgnoringCase(this.app, filePath)) throw new Error(`A project named "${title}" already exists here.`)
+    if (findIgnoringCase(this.app, filePath)) throw new Error(t('store.projectExists', { title }))
     const project = makeProject(title, filePath)
     if (patch) Object.assign(project, patch)
     await this.saveProject(project)
@@ -1135,7 +1137,7 @@ export class ProjectStore implements TaskSource {
     const dir = folderOf(projectFolderOf(this.app, source.filePath) ?? source.filePath)
     const filePath = projectFilePath(title, dir)
     if (findIgnoringCase(this.app, filePath) || findIgnoringCase(this.app, folderOf(filePath))) {
-      throw new Error(`A project named "${title}" already exists here.`)
+      throw new Error(t('store.projectExists', { title }))
     }
 
     await this.loadProjectBody(source)

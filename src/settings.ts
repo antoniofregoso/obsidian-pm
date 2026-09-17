@@ -1,7 +1,7 @@
-import { App, getLanguage, Notice, Platform, PluginSettingTab, Setting, debounce } from 'obsidian'
+import { App, Notice, Platform, PluginSettingTab, Setting, debounce } from 'obsidian'
 import type { SettingDefinitionItem, SettingDefinitionPage } from 'obsidian'
 import type PMPlugin from './main'
-import { type PMSettings, DEFAULT_SETTINGS, priorityIconSetLabels, makeId, flattenTasks, setLocale, t, tn } from '@dotpm/core'
+import { type PMSettings, DEFAULT_SETTINGS, priorityIconSetLabels, makeId, flattenTasks, t, tn } from '@dotpm/core'
 import { saveShortcutLabel } from './utils'
 import { renderCustomFieldFields, renderCustomFieldOptions } from '@dotpm/ui'
 import {
@@ -35,21 +35,6 @@ export class PMSettingTab extends PluginSettingTab {
         type: 'group',
         heading: t('settings.general.heading'),
         items: [
-          {
-            name: t('settings.language.name'),
-            desc: t('settings.language.desc'),
-            aliases: ['locale', 'translation'],
-            control: {
-              type: 'dropdown',
-              key: 'language',
-              options: {
-                system: t('settings.language.system'),
-                en: t('settings.language.english'),
-                es: t('settings.language.spanish'),
-                zh: t('settings.language.chinese')
-              }
-            }
-          },
           {
             name: t('settings.projectsFolder.name'),
             desc: t('settings.projectsFolder.desc'),
@@ -299,10 +284,6 @@ export class PMSettingTab extends PluginSettingTab {
 
   async setControlValue(key: string, value: unknown): Promise<void> {
     await super.setControlValue(key, value)
-    if (key === 'language' && (value === 'system' || value === 'en' || value === 'es' || value === 'zh')) {
-      setLocale(value === 'system' ? getLanguage() : value)
-      this.update()
-    }
     // Today's pass ran against the old window, so it has to run again to reflect the new one.
     if (key === 'autoArchiveDays') {
       this.plugin.settings.lastAutoArchiveDate = ''

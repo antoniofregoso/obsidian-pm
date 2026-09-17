@@ -1,4 +1,4 @@
-import { MarkdownView, Notice, Platform, Plugin } from 'obsidian'
+import { getLanguage, MarkdownView, Notice, Platform, Plugin } from 'obsidian'
 import {
   DEFAULT_SETTINGS,
   defaultPriorities,
@@ -13,6 +13,7 @@ import {
   localApiPortFor,
   compareVersions,
   releaseNotesSince,
+  setLocale,
   t,
   tn
 } from '@dotpm/core'
@@ -401,6 +402,8 @@ export default class PMPlugin extends Plugin {
     // Cloned: a shallow merge would hand the live settings the very arrays and objects
     // DEFAULT_SETTINGS holds, and the first edit would write into the defaults.
     this.settings = Object.assign(structuredClone(DEFAULT_SETTINGS), saved ?? {})
+    if (!['system', 'en', 'es', 'zh'].includes(this.settings.language)) this.settings.language = 'system'
+    setLocale(this.settings.language === 'system' ? getLanguage() : this.settings.language)
     if (!saved?.statuses?.length) this.settings.statuses = defaultStatuses()
     if (!saved?.priorities?.length) this.settings.priorities = defaultPriorities()
     if (!this.settings.projectFilters) this.settings.projectFilters = {}

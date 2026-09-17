@@ -1,4 +1,5 @@
 import en from './locales/en.json'
+import es from './locales/es.json'
 import zh from './locales/zh.json'
 
 export type MessageKey = keyof typeof en
@@ -7,7 +8,7 @@ export type Messages = Partial<Record<MessageKey | `${PluralKey}.${Intl.LDMLPlur
 type Params = Record<string, string | number>
 
 /** Every bundled locale by its language tag; a partial catalog falls back to English per key. */
-export const catalogs: Record<string, Messages> = { en, zh }
+export const catalogs: Record<string, Messages> = { en, es, zh }
 
 const english: Messages = en
 let currentLocale = 'en'

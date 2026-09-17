@@ -205,6 +205,8 @@ export function priorityIconSetLabels(): Record<PriorityIconSet, string> {
 }
 
 export interface PMSettings {
+  /** Language used by the plugin, or Obsidian's language when set to system. */
+  language: 'system' | 'en' | 'es' | 'zh'
   /** Where new projects are created. Projects are discovered vault-wide, wherever they live. */
   projectsFolder: string
   peopleFolder: string
@@ -307,6 +309,7 @@ export const LOCAL_API_PORT_BASE = 27140
 export const LOCAL_API_PORT_SPAN = 100
 
 export const DEFAULT_SETTINGS: PMSettings = {
+  language: 'system',
   projectsFolder: 'Projects',
   peopleFolder: 'People',
   excludedFolders: [],
